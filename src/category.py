@@ -10,10 +10,28 @@ class Category:
     def __init__(self, name: str, description: str, products: list):
         self.name = name
         self.description = description
-        self.products = products if products is not None else []
-
+        self.__products = products if products is not None else []
         Category.category_count += 1
-        Category.product_count += len(self.products)
+        Category.product_count += len(self.__products)
+
+
+    def add_product(self, product: Product):
+        """Добавляет товар в категорию"""
+        if isinstance(product, Product):  # Проверяем, что передан объект Product
+            self.__products.append(product)
+            Category.product_count += 1
+            print(f"Товар '{product.name}' добавлен в категорию '{self.name}'")
+        else:
+            print("Можно добавлять только объекты класса Product!")
+
+    @property
+    def products(self):
+        """Геттер для вывода товаров в нужном формате"""
+        result = ""
+        for product in self.__products:
+            result  += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+        return result.strip()
+
 
 
 if __name__ == "__main__":  # pragma: no cover
@@ -23,8 +41,7 @@ if __name__ == "__main__":  # pragma: no cover
     clothes = Category("Одежда", "Модная одежда", [product1, product2])
 
     print("Товары категории")
-    for product in clothes.products:
-        print(f"-{product.name} - {product.price} руб")
+    print(clothes.products)
 
     print(f"\nВсего категорий: {Category.category_count}")
     print(f"\nВсего товаров: {Category.product_count}")
