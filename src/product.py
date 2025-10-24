@@ -58,34 +58,34 @@ class Product:
            quantity=product_data['quantity'])
 
 
-if __name__ == "__main__":
-    product1 = Product("Honor", "Смартфон", 20000, 10)
-    print(f"Создан товар {product1.name}, цена: {product1.price} руб")
-
-    product1.price = 25000
-    print(f"Цена изменена на {product1.price} руб")
-
-    product1.price = -100
-    print(f"Цена осталась: {product1.price} (не изменилась)")
-
-    products = {
-        "name": "Samsung",
-        "description": "Android телефон",
-        "price": 40000,
-        "quantity": 5
-    }
-    product2 = Product.new_product(products)
-    print(f" Создан через класс-метод: {product2.name}, цена: {product2.price}")
-
-    # Тест 5: Проверяем объединение дубликатов
-    product_data_duplicate = {
-        "name": "samsung",  # тот же товар в другом регистре
-        "description": "Новая модель",
-        "price": 45000,  # большая цена
-        "quantity": 3  # добавляемое количество
-    }
-
-    existing_products = [product2]
-    result = Product.new_product(product_data_duplicate, existing_products)
-    print(f" Объединённый товар: {result.name}, цена: {result.price}, количество: {result.quantity}")
+# if __name__ == "__main__":
+#     product1 = Product("Honor", "Смартфон", 20000, 10)
+#     print(f"Создан товар {product1.name}, цена: {product1.price} руб")
+#
+#     product1.price = 25000
+#     print(f"Цена изменена на {product1.price} руб")
+#
+#     product1.price = -100
+#     print(f"Цена осталась: {product1.price} (не изменилась)")
+#
+#     products = {
+#         "name": "Samsung",
+#         "description": "Android телефон",
+#         "price": 40000,
+#         "quantity": 5
+#     }
+#     product2 = Product.new_product(products)
+#     print(f" Создан через класс-метод: {product2.name}, цена: {product2.price}")
+#
+#     # Тест 5: Проверяем объединение дубликатов
+#     product_data_duplicate = {
+#         "name": "samsung",  # тот же товар в другом регистре
+#         "description": "Новая модель",
+#         "price": 45000,  # большая цена
+#         "quantity": 3  # добавляемое количество
+#     }
+#
+#     existing_products = [product2]
+#     result = Product.new_product(product_data_duplicate, existing_products)
+#     print(f" Объединённый товар: {result.name}, цена: {result.price}, количество: {result.quantity}")
 
