@@ -4,15 +4,21 @@ from src.product import  Product
 from src.category import Category
 
 @pytest.fixture
-def first_category():
+def sample_products():
+    """Фикстура с образцами товаров"""
+    return [
+        Product("Футболка", "Хлопковая футболка", 99.99, 10),
+        Product("Джинсы", "Синие джинсы", 149.99, 15)
+    ]
+
+@pytest.fixture
+def first_category(sample_products):
     return Category(
         name="Одежда",
         description="Модная одежда",
-        products=[
-            Product("Футболка", "Хлопковая футболка", 99.99, 10),
-            Product("Джинсы", "Синие джинсы", 149.99, 15)
-        ]
+        products=sample_products
     )
+
 
 @pytest.fixture
 def second_category():

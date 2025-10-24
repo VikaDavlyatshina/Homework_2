@@ -8,28 +8,31 @@ def test_category_init(first_category, second_category):
     assert first_category.name == "Одежда"
     assert first_category.description == "Модная одежда"
 
-    assert len(first_category.products) == 2
-    assert len(second_category.products) == 3
+    products_str = first_category.products
+    assert "Футболка" in products_str
+    assert "Джинсы" in products_str
+    assert "99.99" in products_str
+    assert "149.99" in products_str
 
+def test_category_products_format(first_category):
+    products_output = first_category.products
 
-def test_category_products(first_category):
-    assert first_category.products[0].name == "Футболка"
-    assert first_category.products[0].price == 99.99
+    assert "Футболка, 99.99 руб. Остаток: 10 шт." in products_output
+    assert "Джинсы, 149.99 руб. Остаток: 15 шт." in products_output
 
-    assert first_category.products[1].name == "Джинсы"
-    assert first_category.products[1].price == 149.99
+    lines = products_output.split('\n')
+    assert len(lines) == 2
 
 def test_empty_category():
     """Тест: можно создать категорию без товаров"""
     empty_category = Category("Электроника", "Техника", [])
 
     assert empty_category.name == "Электроника"
-    assert empty_category.products == []  # пустой список
+    assert empty_category.products == ""
 
 
 def test_total_product_count():
     """Тестируем счетчик товаров"""
-    # Сбрасываем счетчики ПЕРЕД созданием категорий
     Category.category_count = 0
     Category.product_count = 0
 
@@ -55,3 +58,17 @@ def test_total_product_count():
 
     assert Category.category_count == 2
     assert Category.product_count == 5
+
+def test_add_product_to_category(first_category, capsys):
+    new_product = Product("Куртка", "Зимняя куртка", 299.99, 3)
+
+    initial_count = Category.product_count
+
+    first_category.add_product(new_product)
+
+    captured = capsys.readouterr()
+    assert "Товар 'Куртка' добавлен в категорию 'Одежда'" in captured.out
+
+    products_output = first_category.products
+    assert "Куртка, 299.99 руб. Остаток: 3 шт." in products_output
+    assert Category.product_count == initial_count + 1
