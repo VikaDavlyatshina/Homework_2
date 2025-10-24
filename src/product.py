@@ -8,7 +8,7 @@ class Product:
         self.price = price
         self.quantity = quantity
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
     product = Product("Футболка", "Хлопковая футболка", 99.0, 10)
     print(product.name)
     print(product.description)

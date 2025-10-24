@@ -30,8 +30,8 @@ def test_empty_category():
 def test_total_product_count():
     """Тестируем счетчик товаров"""
     # Сбрасываем счетчики ПЕРЕД созданием категорий
-    Category.total_categories = 0
-    Category.total_products = 0
+    Category.category_count = 0
+    Category.product_count = 0
 
     first_category = Category(
         "Одежда",
@@ -53,5 +53,5 @@ def test_total_product_count():
     )
 
 
-    assert Category.total_categories == 2
-    assert Category.total_products == 5
+    assert Category.category_count == 2
+    assert Category.product_count == 5
