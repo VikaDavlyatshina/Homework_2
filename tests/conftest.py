@@ -29,3 +29,12 @@ def second_category():
 @pytest.fixture
 def product():
     return Product("Футболка", "Хлопковая футболка", 99.99, 10)
+
+@pytest.fixture
+def product_data():
+    return {
+            'name': 'Телефон',
+            'description': 'Смартфон',
+            'price': 20000,
+            'quantity': 5
+        }
