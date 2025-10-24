@@ -1,12 +1,13 @@
 from src.product import Product
 
+
 class Category:
     """Класс для представления категорий товаров"""
 
     category_count = 0
     product_count = 0
 
-    def __init__(self, name:str, description:str, products:list):
+    def __init__(self, name: str, description: str, products: list):
         self.name = name
         self.description = description
         self.products = products if products is not None else []
@@ -15,7 +16,7 @@ class Category:
         Category.product_count += len(self.products)
 
 
-if __name__ == "__main__": # pragma: no cover
+if __name__ == "__main__":  # pragma: no cover
     product1 = Product("Футболка", "Хлопковая футболка", 99.99, 10)
     product2 = Product("Джинсы", "Синие джинсы", 149.99, 15)
 

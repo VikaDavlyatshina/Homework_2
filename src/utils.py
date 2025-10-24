@@ -1,12 +1,13 @@
 import json
 import os
 
-from src.product import Product
 from src.category import Category
+from src.product import Product
 
-def read_json(path:str)-> dict:
+
+def read_json(path: str) -> dict:
     full_path = os.path.abspath(path)
-    with open(full_path, 'r', encoding='UTF-8') as file:
+    with open(full_path, "r", encoding="UTF-8") as file:
         data = json.load(file)
     return data
 
@@ -26,7 +27,7 @@ def create_objects_from_json(data):
         category_args = {
             "name": category_data["name"],
             "description": category_data["description"],
-            "products": products_list
+            "products": products_list,
         }
         category = Category(**category_args)
         categories_list.append(category)
@@ -42,5 +43,5 @@ if __name__ == "__main__":
         print(f" {category.name} ({len(category.products)} товаров)")
 
         for product in category.products:
-            print(f"{product.name} - {product.price} руб. (остаток: {product.quantity})")
-
+            print(f"{product.name} - {product.price} руб.")
+            print(f"остаток: {product.quantity}")
