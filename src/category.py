@@ -14,10 +14,10 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(self.__products)
 
-
     def add_product(self, product: Product):
         """Добавляет товар в категорию"""
-        if isinstance(product, Product):  # Проверяем, что передан объект Product
+        # Проверяем, что передан объект Product
+        if isinstance(product, Product):
             self.__products.append(product)
             Category.product_count += 1
             print(f"Товар '{product.name}' добавлен в категорию '{self.name}'")
@@ -29,9 +29,8 @@ class Category:
         """Геттер для вывода товаров в нужном формате"""
         result = ""
         for product in self.__products:
-            result  += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+            result += f"{product.name}, {product.price} руб. " f"Остаток: {product.quantity} шт.\n"
         return result.strip()
-
 
 
 if __name__ == "__main__":  # pragma: no cover

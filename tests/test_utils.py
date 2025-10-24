@@ -1,8 +1,5 @@
-from itertools import product
-
-from src.utils import read_json, create_objects_from_json
 from src.category import Category
-from src.product import Product
+from src.utils import create_objects_from_json, read_json
 
 
 def test_read_json_file_exists():
@@ -24,17 +21,9 @@ def test_create_objects_from_json():
         {
             "name": "Тестовая категория",
             "description": "Тестовое описание",
-            "products": [
-                {
-                    "name": "Тестовый товар",
-                    "description": "Тест",
-                    "price": 1000,
-                    "quantity": 5
-                }
-            ]
+            "products": [{"name": "Тестовый товар", "description": "Тест", "price": 1000, "quantity": 5}],
         }
     ]
-
 
     Category.category_count = 0
     Category.product_count = 0
@@ -49,4 +38,3 @@ def test_create_objects_from_json():
     assert "Тестовый товар" in products_output
     assert "1000" in products_output
     assert "5 шт." in products_output
-

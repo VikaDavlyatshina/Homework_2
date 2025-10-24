@@ -23,9 +23,9 @@ def read_json(path: str) -> List[dict]:
         return []
 
 
-def create_objects_from_json(data: List[dict])-> List[Category]:
+def create_objects_from_json(data: List[dict]) -> List[Category]:
 
-    categories_list = []
+    categories_list: List[Category] = []
 
     if not data:
         print("Нет данных для создания объектов")
@@ -33,7 +33,7 @@ def create_objects_from_json(data: List[dict])-> List[Category]:
 
     for category_data in data:
         try:
-            products_list = []
+            products_list: List[Product] = []
 
             products_data = category_data.get("products", [])
 
@@ -61,4 +61,3 @@ def create_objects_from_json(data: List[dict])-> List[Category]:
             print(f"Ошибка при создании категории {e}")
 
     return categories_list
-

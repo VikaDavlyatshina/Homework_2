@@ -3,6 +3,7 @@ from src.product import Product
 
 """Тест для класса Category"""
 
+
 def test_category_init(first_category, second_category):
     """Тест инициализации"""
     assert first_category.name == "Одежда"
@@ -14,14 +15,16 @@ def test_category_init(first_category, second_category):
     assert "99.99" in products_str
     assert "149.99" in products_str
 
+
 def test_category_products_format(first_category):
     products_output = first_category.products
 
     assert "Футболка, 99.99 руб. Остаток: 10 шт." in products_output
     assert "Джинсы, 149.99 руб. Остаток: 15 шт." in products_output
 
-    lines = products_output.split('\n')
+    lines = products_output.split("\n")
     assert len(lines) == 2
+
 
 def test_empty_category():
     """Тест: можно создать категорию без товаров"""
@@ -36,28 +39,25 @@ def test_total_product_count():
     Category.category_count = 0
     Category.product_count = 0
 
-    first_category = Category(
+    Category(
         "Одежда",
         "Модная одежда",
-        [
-            Product("Футболка", "Хлопковая футболка", 99.99, 10),
-            Product("Джинсы", "Синие джинсы", 149.99, 15)
-        ]
+        [Product("Футболка", "Хлопковая футболка", 99.99, 10), Product("Джинсы", "Синие джинсы", 149.99, 15)],
     )
 
-    second_category = Category(
+    Category(
         "Книги",
         "Книги и учебники",
         [
             Product("Учебник", "Учебная литература", 50.99, 5),
             Product("Научная фантастика", "Фантастика", 70.99, 10),
-            Product("Книга", "Художественная литература", 69.99, 7)
-        ]
+            Product("Книга", "Художественная литература", 69.99, 7),
+        ],
     )
-
 
     assert Category.category_count == 2
     assert Category.product_count == 5
+
 
 def test_add_product_to_category(first_category, capsys):
     new_product = Product("Куртка", "Зимняя куртка", 299.99, 3)
