@@ -13,6 +13,7 @@ def test_category_init(clothing_category):
     assert "Футболка" in products_str
     assert "Джинсы" in products_str
 
+
 def test_category_products_format(clothing_category):
     products_output = clothing_category.products
 
@@ -66,6 +67,7 @@ def test_add_product_to_category(clothing_category, capsys):
     products_output = clothing_category.products
     assert "Куртка, 299.99 руб. Остаток: 3 шт." in products_output
     assert Category.product_count == initial_count + 1
+
 
 def test_category_str_representation(clothing_category):
     """Тест строкового представления категории"""

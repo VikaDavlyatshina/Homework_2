@@ -39,20 +39,13 @@ def test_create_objects_from_json():
     assert "1000" in products_output
     assert "5 шт." in products_output
 
+
 def test_create_objects_from_json_empty_products():
     """Тест создания категории с пустым списком товаров"""
-    test_data = [
-        {
-            "name": "Пустая категория",
-            "description": "Без товаров",
-            "products": []  # Пустой список товаров
-        }
-    ]
+    test_data = [{"name": "Пустая категория", "description": "Без товаров", "products": []}]  # Пустой список товаров
 
     categories = create_objects_from_json(test_data)
 
     assert len(categories) == 1
     assert categories[0].name == "Пустая категория"
     assert categories[0].products == "В этой категории пока нет товаров"
-
-

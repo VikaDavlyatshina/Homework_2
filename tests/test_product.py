@@ -1,4 +1,3 @@
-import pytest
 from src.product import Product
 
 """Тесты для класса Product"""
@@ -33,10 +32,12 @@ def test_price_setter_zero(sample_product, capsys):
     assert "Цена не должна быть нулевая или отрицательная" in captured.out
     assert sample_product.price == 99.99
 
+
 def test_price_setter_positive(sample_product):
     """Тест установки корректной цены"""
     sample_product.price = 150.0
     assert sample_product.price == 150.0
+
 
 def test_new_product_without_duplicates(product_dict, sample_product):
     """Тест создания товара без дубликатов"""
@@ -64,6 +65,7 @@ def test_product_addition(sample_product, second_product):
     total = sample_product + second_product
     expected = (99.99 * 10) + (149.99 * 15)
     assert total == expected
+
 
 def test_product_addition_different_types(sample_product, electronic_product):
     """Тест сложения товаров разных типов (должно работать, так как оба Product)"""
