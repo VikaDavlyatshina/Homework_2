@@ -1,44 +1,90 @@
 import json
 import os
-
 import pytest
-
 from src.category import Category
 from src.product import Product
 
 
-@pytest.fixture
-def sample_products():
-    return [Product("Футболка", "Хлопковая футболка", 99.99, 10), Product("Джинсы", "Синие джинсы", 149.99, 15)]
-
+"""Фикстуры для Класса Товаров (Product)"""
 
 @pytest.fixture
-def first_category(sample_products):
-    return Category(name="Одежда", description="Модная одежда", products=sample_products)
+def sample_product():
+    """Базовый тестовый товар"""
+    return Product("Футболка", "Хлопковая футболка", 99.99, 10)
 
 
 @pytest.fixture
-def second_category():
+def second_product():
+    """Второй тестовый товар"""
+    return Product("Джинсы", "Синие джинсы", 149.99, 15)
+
+
+@pytest.fixture
+def sample_products(sample_product, second_product):
+    """Список тестовых товаров (использует другие фикстуры)"""
+    return [sample_product, second_product]
+
+
+@pytest.fixture
+def electronic_product():
+    """Товар для электроники"""
+    return Product("Смартфон", "Флагманский смартфон", 50000.0, 5)
+
+"""Фикстуры для класса Категорий (Category) """
+def empty_category():
+    """Пустая категория"""
+    return Category("Одежда", "Модная одежда")
+
+
+@pytest.fixture
+def clothing_category(sample_products):
+    """Категория одежды с товарами"""
+    return Category("Одежда", "Модная одежда", sample_products)
+
+
+@pytest.fixture
+def books_category():
+    """Категория книг с товарами"""
     return Category(
         name="Книги",
         description="Книги и учебники",
         products=[
             Product("Учебник", "Учебная литература", 50.99, 5),
             Product("Научная фантастика", "Фантастика", 70.99, 10),
-            Product("Книга", "Художественная литература", 69.99, 7),
         ],
     )
 
 
 @pytest.fixture
-def product():
-    return Product("Футболка", "Хлопковая футболка", 99.99, 10)
+def electronics_category(electronic_product):
+    """Категория электроники с одним товаром"""
+    return Category("Электроника", "Техника", [electronic_product])
+
+
+"""Фикстуры для данных (словари)"""
+
+@pytest.fixture
+def product_dict():
+    """Данные товара в виде словаря"""
+    return {
+        "name": "Телефон",
+        "description": "Смартфон",
+        "price": 20000.0,
+        "quantity": 5
+    }
 
 
 @pytest.fixture
-def product_data():
-    return {"name": "Телефон", "description": "Смартфон", "price": 20000, "quantity": 5}
+def duplicate_product_dict(sample_product):
+    """Данные товара-дубликата"""
+    return {
+        "name": sample_product.name,  # Такое же имя как у sample_product
+        "description": "Новое описание",
+        "price": 150.0,  # Другая цена
+        "quantity": 3    # Другое количество
+    }
 
+"""Фикстуры для Json"""
 
 @pytest.fixture
 def create_test_json_file():
