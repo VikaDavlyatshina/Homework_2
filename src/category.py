@@ -1,4 +1,5 @@
 from src.product import Product
+from typing import Optional, List
 
 
 
