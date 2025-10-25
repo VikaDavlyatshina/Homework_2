@@ -30,29 +30,10 @@ def electronic_product():
     """Товар для электроники"""
     return Product("Смартфон", "Флагманский смартфон", 50000.0, 5)
 
-"""Фикстуры для класса Категорий (Category) """
-def empty_category():
-    """Пустая категория"""
-    return Category("Одежда", "Модная одежда")
-
-
 @pytest.fixture
 def clothing_category(sample_products):
     """Категория одежды с товарами"""
     return Category("Одежда", "Модная одежда", sample_products)
-
-
-@pytest.fixture
-def books_category():
-    """Категория книг с товарами"""
-    return Category(
-        name="Книги",
-        description="Книги и учебники",
-        products=[
-            Product("Учебник", "Учебная литература", 50.99, 5),
-            Product("Научная фантастика", "Фантастика", 70.99, 10),
-        ],
-    )
 
 
 @pytest.fixture
