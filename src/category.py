@@ -23,37 +23,6 @@ class Category:
         total_quantity = sum(product.quantity for product in self.__products)
         return  f"{self.name}, количество продуктов: {total_quantity} шт."
 
-    def _get_products(self):
-        """Защищенный метод для доступа к товарам"""
-        return self.__products
-
-    def __iter__(self):
-        """Магический метод для поддержки итерации"""
-        return self.ProductIterator(self)
-
-    class ProductIterator:
-        """Вспомогательный класс для итерации по товарам категории"""
-
-        def __init__(self, category):
-            """
-            category - объект класса Category
-            """
-            self.category = category
-            self.index = 0
-
-        def __iter__(self):
-            """Возвращает итератор"""
-            return self
-
-        def __next__(self):
-            """Возвращает следующий товар в категории"""
-            products = self.category._get_products()
-            if self.index < len(products):
-                product = products[self.index]
-                self.index += 1
-                return product
-            else:
-                raise StopIteration
 
     def add_product(self, product: Product):
         """Добавляет товар в категорию"""
@@ -91,32 +60,3 @@ if __name__ == "__main__":  # pragma: no cover
     print(f"\nВсего категорий: {Category.category_count}")
     print(f"\nВсего товаров: {Category.product_count}")
 
-if __name__ == "__main__":
-    # Тестируем ВСЕ функции
-    product1 = Product("Футболка", "Хлопковая футболка", 99.99, 10)
-    product2 = Product("Джинсы", "Синие джинсы", 149.99, 15)
-
-    print("✅ Строковое представление товара:")
-    print(product1)
-
-    print("\n✅ Сложение товаров:")
-    total = product1 + product2
-    print(f"Общая стоимость: {total} руб.")
-
-    print("\n✅ Создание категории:")
-    clothes = Category("Одежда", "Модная одежда", [product1, product2])
-    print(clothes)
-
-    print("\n✅ Геттер products:")
-    print(clothes.products)
-
-    print("\n✅ Итерация по категории:")
-    for product_ in clothes:
-        print(f" - {product_}")
-
-    print(f"\n✅ Статистика:")
-    print(f"Всего категорий: {Category.category_count}")
-    print(f"Всего товаров: {Category.product_count}")
-
-    print("\n✅ Проверка дубликатов:")
-    clothes.add_product(product1)
