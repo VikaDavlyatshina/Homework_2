@@ -17,7 +17,7 @@ class Product:
 
     def __add__(self, other):
         """Магический метод, который возвращает общую стоимость всех товаров на складе"""
-        if not isinstance(other, Product):
+        if type(self) is not type(other):
             raise TypeError("Можно складывать только объекты класса Product")
         return (self.price * self.quantity) + (other.price * other.quantity)
 
@@ -80,7 +80,7 @@ class Smartphone(Product):
         """Переопределяем строковое представление для смартфона"""
         base_info =super().__str__() # берём базовую информацию
         return (f"{base_info}\n"
-                f"Производительность: {self.efficiency},"
+                f"Производительность: {self.efficiency}, "
                 f"Модель: {self.model}, "
                 f"Память: {self.memory} ГБ, "
                 f"Цвет: {self.color}")
@@ -98,7 +98,6 @@ class LawnGrass(Product):
         """Переопределяем строковое представление для смартфона"""
         base_info = super().__str__()  # берём базовую информацию
         return (f"{base_info}\n"
-                f"Страна-производитель: {self.country},"
+                f"Страна-производитель: {self.country}, "
                 f"Срок прорастания: {self.germination_period}, " 
                 f"Цвет: {self.color}")
-

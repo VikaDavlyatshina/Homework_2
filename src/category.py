@@ -26,16 +26,15 @@ class Category:
 
     def add_product(self, product: Product):
         """Добавляет товар в категорию"""
-        # Проверяем, что передан объект Product
+        # Проверяем, что product является подклассом Product
+        if not issubclass(type(product), Product):
+            raise TypeError("Можно добавлять только объекты класса Product и его наследников!")
         if isinstance(product, Product):
-            if product not in self.__products:
-                self.__products.append(product)
-                Category.product_count += 1
-                print(f"Товар '{product.name}' добавлен в категорию '{self.name}'")
-            else:
-                print(f"Товар '{product.name}' уже есть в категории")
-        else:
-            print("Можно добавлять только объекты класса Product!")
+            raise TypeError("Можно добавлять только объекты класса Product и его наследников!")
+        self.__products.append(product)
+        Category.product_count += 1
+        print(f"Товар '{product.name}' добавлен в категорию '{self.name}'")
+
 
     @property
     def products(self):
