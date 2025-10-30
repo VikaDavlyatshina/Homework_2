@@ -18,6 +18,8 @@ class Category:
         for product in self.__products:
             if isinstance(product, Product):
                 Category.product_count += 1
+            else:
+                self.__products.remove(product)
 
     def __str__(self):
         """Магический метод для строкового представления категории"""
@@ -27,9 +29,7 @@ class Category:
     def add_product(self, product: Product):
         """Добавляет товар в категорию"""
         # Проверяем, что product является подклассом Product
-        if not issubclass(type(product), Product):
-            raise TypeError("Можно добавлять только объекты класса Product и его наследников!")
-        if isinstance(product, Product):
+        if not isinstance(product, Product):
             raise TypeError("Можно добавлять только объекты класса Product и его наследников!")
         self.__products.append(product)
         Category.product_count += 1

@@ -17,8 +17,8 @@ class Product:
 
     def __add__(self, other):
         """Магический метод, который возвращает общую стоимость всех товаров на складе"""
-        if type(self) is not type(other):
-            raise TypeError("Можно складывать только объекты класса Product")
+        if type(self) != type(other):
+            raise TypeError("Можно складывать только товары из одинаковых классов продуктов")
         return (self.price * self.quantity) + (other.price * other.quantity)
 
     @property
