@@ -7,30 +7,45 @@ class Category:
     category_count = 0
     product_count = 0
 
-    def __init__(self, name: str, description: str, products: list):
+    def __init__(self, name: str, description: str, products: list=None):
         self.name = name
         self.description = description
         self.__products = products if products is not None else []
         Category.category_count += 1
-        Category.product_count += len(self.__products)
+
+        for product in self.__products:
+            if isinstance(product, Product):
+                Category.product_count += 1
+
+
+    def __str__(self):
+        """Магический метод для строкового представления категории"""
+        total_quantity = sum(product.quantity for product in self.__products)
+        return  f"{self.name}, количество продуктов: {total_quantity} шт."
+
 
     def add_product(self, product: Product):
         """Добавляет товар в категорию"""
         # Проверяем, что передан объект Product
         if isinstance(product, Product):
-            self.__products.append(product)
-            Category.product_count += 1
-            print(f"Товар '{product.name}' добавлен в категорию '{self.name}'")
+            if product not in self.__products:
+              self.__products.append(product)
+              Category.product_count += 1
+              print(f"Товар '{product.name}' добавлен в категорию '{self.name}'")
+            else:
+               print(f"Товар '{product.name}' уже есть в категории")
         else:
             print("Можно добавлять только объекты класса Product!")
 
     @property
     def products(self):
         """Геттер для вывода товаров в нужном формате"""
-        result = ""
-        for product in self.__products:
-            result += f"{product.name}, {product.price} руб. " f"Остаток: {product.quantity} шт.\n"
-        return result.strip()
+        if not self.__products:
+            return "В этой категории пока нет товаров"
+
+        product_list = [str(product) for product in self.__products]
+        return "\n".join(product_list)
+
 
 
 if __name__ == "__main__":  # pragma: no cover
@@ -44,3 +59,4 @@ if __name__ == "__main__":  # pragma: no cover
 
     print(f"\nВсего категорий: {Category.category_count}")
     print(f"\nВсего товаров: {Category.product_count}")
+
