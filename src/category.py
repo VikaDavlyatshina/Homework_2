@@ -1,5 +1,5 @@
 from src.product import Product
-from typing import Optional, List
+from typing import Optional, List, Union, Any
 
 
 
@@ -26,7 +26,7 @@ class Category:
         total_quantity = sum(product.quantity for product in self.__products)
         return f"{self.name}, количество продуктов: {total_quantity} шт."
 
-    def add_product(self, product: Product):
+    def add_product(self, product: Union[Product, Any]):
         """Добавляет товар в категорию"""
         # Проверяем, что product является подклассом Product
         if not isinstance(product, Product):
