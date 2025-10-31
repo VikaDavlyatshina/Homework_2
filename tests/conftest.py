@@ -168,3 +168,34 @@ def create_invalid_json_file():
 
     if os.path.exists("test_invalid.json"):
         os.remove("test_invalid.json")
+
+@pytest.fixture
+def valid_json_data():
+    """Валидные данные в виде словаря (без файла)"""
+    return [
+        {
+            "name": "Одежда",
+            "description": "Модная одежда",
+            "products": [
+                {"name": "Футболка", "description": "Хлопковая", "price": 99.99, "quantity": 10 }
+            ]
+        }
+    ]
+
+@pytest.fixture
+def json_data_with_missing_fields():
+    """Данные с отсутствующими обязательными полями"""
+    return [
+        {
+            "name": "Одежда",
+            # Нет description - обязательное поле
+            "products": [
+                {"name": "Футболка", "description": "Хлопковая", "price": 99.99, "quantity": 10}
+            ]
+        }
+    ]
+
+@pytest.fixture
+def empty_data():
+    """Пустые данные"""
+    return []
