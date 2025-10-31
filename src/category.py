@@ -1,6 +1,6 @@
-from src.product import Product
-from typing import Optional, List, Union, Any
+from typing import Any, List, Optional, Union
 
+from src.product import Product
 
 
 class Category:
@@ -34,7 +34,6 @@ class Category:
         self.__products.append(product)
         Category.product_count += 1
         print(f"Товар '{product.name}' добавлен в категорию '{self.name}'")
-
 
     @property
     def products(self):

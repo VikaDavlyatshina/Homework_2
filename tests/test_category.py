@@ -1,6 +1,7 @@
+import pytest
+
 from src.category import Category
 from src.product import Product
-import pytest
 
 """Тест для класса Category"""
 
@@ -75,6 +76,7 @@ def test_category_str_representation(clothing_category):
     result = str(clothing_category)
     expected = "Одежда, количество продуктов: 25 шт."  # 10 + 15
     assert result == expected
+
 
 def test_add_smartphone_to_category(clothing_category, smartphone_product, capsys):
     """Тест добавления смартфона в категорию."""

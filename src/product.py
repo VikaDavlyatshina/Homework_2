@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import List, Optional
 
 
 class Product:
@@ -17,7 +17,7 @@ class Product:
 
     def __add__(self, other):
         """Магический метод, который возвращает общую стоимость всех товаров на складе"""
-        if type(self) != type(other):
+        if type(self) is not type(other):
             raise TypeError("Можно складывать только товары из одинаковых классов продуктов")
         return (self.price * self.quantity) + (other.price * other.quantity)
 
@@ -68,27 +68,30 @@ class Product:
 
 class Smartphone(Product):
     """Класс для Смартфонов - наследуется от Product"""
-    def __init__(self, name, description, price, quantity,
-                 efficiency, model, memory, color):
+
+    def __init__(self, name, description, price, quantity, efficiency, model, memory, color):
         super().__init__(name, description, price, quantity)
-        self.efficiency = efficiency # производительность
-        self.model = model        # модель
-        self.memory = memory     # объём памяти
-        self.color = color       # цвет
+        self.efficiency = efficiency  # производительность
+        self.model = model  # модель
+        self.memory = memory  # объём памяти
+        self.color = color  # цвет
 
     def __str__(self):
         """Переопределяем строковое представление для смартфона"""
-        base_info =super().__str__() # берём базовую информацию
-        return (f"{base_info}\n"
-                f"Производительность: {self.efficiency}, "
-                f"Модель: {self.model}, "
-                f"Память: {self.memory} ГБ, "
-                f"Цвет: {self.color}")
+        base_info = super().__str__()  # берём базовую информацию
+        return (
+            f"{base_info}\n"
+            f"Производительность: {self.efficiency}, "
+            f"Модель: {self.model}, "
+            f"Память: {self.memory} ГБ, "
+            f"Цвет: {self.color}"
+        )
+
 
 class LawnGrass(Product):
     """Класс Трава газонная - наследуется от Product"""
-    def __init__(self, name, description, price, quantity,
-                 country, germination_period, color):
+
+    def __init__(self, name, description, price, quantity, country, germination_period, color):
         super().__init__(name, description, price, quantity)
         self.country = country  # страна-производитель
         self.germination_period = germination_period  # срок прорастания
@@ -97,7 +100,9 @@ class LawnGrass(Product):
     def __str__(self):
         """Переопределяем строковое представление для смартфона"""
         base_info = super().__str__()  # берём базовую информацию
-        return (f"{base_info}\n"
-                f"Страна-производитель: {self.country}, "
-                f"Срок прорастания: {self.germination_period}, " 
-                f"Цвет: {self.color}")
+        return (
+            f"{base_info}\n"
+            f"Страна-производитель: {self.country}, "
+            f"Срок прорастания: {self.germination_period}, "
+            f"Цвет: {self.color}"
+        )

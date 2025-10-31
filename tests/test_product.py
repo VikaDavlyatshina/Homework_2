@@ -1,6 +1,6 @@
-from src.product import Product
-from tests.conftest import lawn_grass_product
 import pytest
+
+from src.product import Product
 
 """Тесты для класса Product"""
 
@@ -75,6 +75,7 @@ def test_product_addition_different_types(sample_product, electronic_product):
     expected = (99.99 * 10) + (50000.0 * 5)
     assert total == expected
 
+
 def test_smartphone_init(smartphone_product):
     """Тест инициализации смартфона. Проверяем, что все атрибуты установлены правильно."""
     # Проверяем наследуемые атрибуты (от Product)
@@ -88,6 +89,7 @@ def test_smartphone_init(smartphone_product):
     assert smartphone_product.model == "15 Pro"
     assert smartphone_product.memory == 256
     assert smartphone_product.color == "Black"
+
 
 def test_smartphone_str(smartphone_product):
     """Тест строкового представления смартфона.
@@ -104,6 +106,7 @@ def test_smartphone_str(smartphone_product):
     assert "15 Pro" in result
     assert "256 ГБ" in result
     assert "Black" in result
+
 
 def test_lawn_grass_init(lawn_grass_product):
     """
@@ -137,6 +140,7 @@ def test_lawn_grass_str_representation(lawn_grass_product):
     assert "Срок прорастания: 14" in result
     assert "Зеленый" in result
 
+
 def test_smartphone_addition_same_class(smartphone_product, second_smartphone):
     """Тест сложения двух смартфонов"""
     total = smartphone_product + second_smartphone
@@ -144,6 +148,7 @@ def test_smartphone_addition_same_class(smartphone_product, second_smartphone):
     # Ожидаемый результат: (цена1 * количество1) + (цена2 * количество2)
     expected = (999.99 * 5) + (799.99 * 3)
     assert total == expected
+
 
 def test_lawn_grass_addition_same_class(lawn_grass_product, second_lawn_grass):
     """Тест сложения двух газонных трав"""
@@ -156,16 +161,16 @@ def test_addition_different_classes_raises_error(smartphone_product, lawn_grass_
     """Тест, что сложение разных классов вызывает TypeError."""
     # Используем параметр match для проверки текста ошибки
     with pytest.raises(TypeError, match="Можно складывать только товары из одинаковых классов продуктов"):
-        result = smartphone_product + lawn_grass_product
+        _ = smartphone_product + lawn_grass_product
 
 
 def test_addition_product_with_smartphone_raises_error(sample_product, smartphone_product):
     """Тест, что сложение Product и Smartphone вызывает ошибку."""
     with pytest.raises(TypeError, match="Можно складывать только товары из одинаковых классов продуктов"):
-       result=  sample_product + smartphone_product
+        _ = sample_product + smartphone_product
 
 
 def test_addition_product_with_lawn_grass_raises_error(sample_product, lawn_grass_product):
     """Тест, что сложение Product и LawnGrass вызывает ошибку."""
     with pytest.raises(TypeError, match="Можно складывать только товары из одинаковых классов продуктов"):
-        result = sample_product + lawn_grass_product
+        _ = sample_product + lawn_grass_product
