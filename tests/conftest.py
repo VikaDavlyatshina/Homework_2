@@ -1,11 +1,13 @@
 import json
 import os
+
 import pytest
+
 from src.category import Category
 from src.product import Product
 
-
 """Фикстуры для Класса Товаров (Product)"""
+
 
 @pytest.fixture
 def sample_product():
@@ -30,6 +32,7 @@ def electronic_product():
     """Товар для электроники"""
     return Product("Смартфон", "Флагманский смартфон", 50000.0, 5)
 
+
 @pytest.fixture
 def clothing_category(sample_products):
     """Категория одежды с товарами"""
@@ -44,15 +47,11 @@ def electronics_category(electronic_product):
 
 """Фикстуры для данных (словари)"""
 
+
 @pytest.fixture
 def product_dict():
     """Данные товара в виде словаря"""
-    return {
-        "name": "Телефон",
-        "description": "Смартфон",
-        "price": 20000.0,
-        "quantity": 5
-    }
+    return {"name": "Телефон", "description": "Смартфон", "price": 20000.0, "quantity": 5}
 
 
 @pytest.fixture
@@ -62,10 +61,12 @@ def duplicate_product_dict(sample_product):
         "name": sample_product.name,  # Такое же имя как у sample_product
         "description": "Новое описание",
         "price": 150.0,  # Другая цена
-        "quantity": 3    # Другое количество
+        "quantity": 3,  # Другое количество
     }
 
+
 """Фикстуры для Json"""
+
 
 @pytest.fixture
 def create_test_json_file():

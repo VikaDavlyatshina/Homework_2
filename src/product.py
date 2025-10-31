@@ -1,4 +1,5 @@
-from typing import Optional, List
+from typing import List, Optional
+
 
 class Product:
     """Класс для представления товара"""
@@ -11,7 +12,7 @@ class Product:
         self.quantity = quantity
 
     def __str__(self):
-        """Магический метод для строкового представления товара """
+        """Магический метод для строкового представления товара"""
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other):
@@ -19,7 +20,6 @@ class Product:
         if not isinstance(other, Product):
             raise TypeError("Можно складывать только объекты класса Product")
         return (self.price * self.quantity) + (other.price * other.quantity)
-
 
     @property
     def price(self):
@@ -41,7 +41,7 @@ class Product:
         self.__price = new_price
 
     @classmethod
-    def new_product(cls, product_data: dict, product_list: Optional[List['Product']] = None):
+    def new_product(cls, product_data: dict, product_list: Optional[List["Product"]] = None):
         """Создает товар из словаря с проверкой дубликатов"""
         # Если передан список товаров - ищем дубликаты
         if product_list:
@@ -53,9 +53,9 @@ class Product:
                         name=existing_product.name,
                         description=existing_product.description,
                         # Выбираем большую цену
-                        price=max(existing_product.price, product_data['price']),
+                        price=max(existing_product.price, product_data["price"]),
                         # Складываем количество
-                        quantity=existing_product.quantity + product_data['quantity']
+                        quantity=existing_product.quantity + product_data["quantity"],
                     )
 
         return cls(
@@ -64,5 +64,3 @@ class Product:
             price=product_data["price"],
             quantity=product_data["quantity"],
         )
-
-
