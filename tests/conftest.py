@@ -4,9 +4,7 @@ import os
 import pytest
 
 from src.category import Category
-from src.product import Product
-
-"""Фикстуры для Класса Товаров (Product)"""
+from src.product import LawnGrass, Product, Smartphone
 
 
 @pytest.fixture
@@ -65,6 +63,64 @@ def duplicate_product_dict(sample_product):
     }
 
 
+@pytest.fixture
+def smartphone_product():
+    """Фикстура для создания смартфона"""
+    return Smartphone(
+        name="iPhone 15",
+        description="Новый смартфон Apple",
+        price=999.99,
+        quantity=5,
+        efficiency="A16 Bionic",
+        model="15 Pro",
+        memory=256,
+        color="Black",
+    )
+
+
+@pytest.fixture
+def lawn_grass_product():
+    """Фикстура для создания газонной травы"""
+    return LawnGrass(
+        name="Газонная трава Премиум",
+        description="Мягкая газонная трава",
+        price=49.99,
+        quantity=100,
+        country="Россия",
+        germination_period=14,
+        color="Зеленый",
+    )
+
+
+@pytest.fixture
+def second_smartphone():
+    """Второй смартфон для тестов сложения"""
+    return Smartphone(
+        name="Samsung Galaxy",
+        description="Android smartphone",
+        price=799.99,
+        quantity=3,
+        efficiency="Snapdragon",
+        model="S23",
+        memory=128,
+        color="White",
+    )
+
+
+@pytest.fixture
+def second_lawn_grass():
+    """Вторая газонная трава для тестов сложения"""
+    return LawnGrass(
+        name="Газонная трава Стандарт",
+        description="Обычная газонная трава",
+        price=29.99,
+        quantity=50,
+        country="Беларусь",
+        germination_period=10,
+        color="Светло-зеленый",
+    )
+
+
 """Фикстуры для Json"""
 
 
@@ -113,3 +169,33 @@ def create_invalid_json_file():
 
     if os.path.exists("test_invalid.json"):
         os.remove("test_invalid.json")
+
+
+@pytest.fixture
+def valid_json_data():
+    """Валидные данные в виде словаря (без файла)"""
+    return [
+        {
+            "name": "Одежда",
+            "description": "Модная одежда",
+            "products": [{"name": "Футболка", "description": "Хлопковая", "price": 99.99, "quantity": 10}],
+        }
+    ]
+
+
+@pytest.fixture
+def json_data_with_missing_fields():
+    """Данные с отсутствующими обязательными полями"""
+    return [
+        {
+            "name": "Одежда",
+            # Нет description - обязательное поле
+            "products": [{"name": "Футболка", "description": "Хлопковая", "price": 99.99, "quantity": 10}],
+        }
+    ]
+
+
+@pytest.fixture
+def empty_data():
+    """Пустые данные"""
+    return []

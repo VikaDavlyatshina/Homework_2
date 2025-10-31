@@ -1,3 +1,5 @@
+import pytest
+
 from src.category import Category
 from src.product import Product
 
@@ -74,3 +76,68 @@ def test_category_str_representation(clothing_category):
     result = str(clothing_category)
     expected = "Одежда, количество продуктов: 25 шт."  # 10 + 15
     assert result == expected
+
+
+def test_add_smartphone_to_category(clothing_category, smartphone_product, capsys):
+    """Тест добавления смартфона в категорию."""
+    initial_count = Category.product_count
+
+    clothing_category.add_product(smartphone_product)
+
+    # Проверяем сообщение о добавлении
+    captured = capsys.readouterr()
+    assert f"Товар '{smartphone_product.name}' добавлен в категорию '{clothing_category.name}'" in captured.out
+
+    # Проверяем, что счетчик увеличился
+    assert Category.product_count == initial_count + 1
+
+    # Проверяем, что товар действительно добавлен
+    products_output = clothing_category.products
+    assert "iPhone 15" in products_output
+
+
+def test_add_lawn_grass_to_category(clothing_category, lawn_grass_product, capsys):
+    """
+    Тест добавления газонной травы в категорию.
+    Должно работать, так как LawnGrass наследуется от Product.
+    """
+    initial_count = Category.product_count
+
+    clothing_category.add_product(lawn_grass_product)
+
+    captured = capsys.readouterr()
+    assert f"Товар '{lawn_grass_product.name}' добавлен в категорию '{clothing_category.name}'" in captured.out
+    assert Category.product_count == initial_count + 1
+
+    products_output = clothing_category.products
+    assert "Газонная трава Премиум" in products_output
+
+
+def test_add_invalid_product_raises_error(clothing_category):
+    """
+    Тест, что попытка добавить не-продукт вызывает TypeError.
+    """
+    with pytest.raises(TypeError) as exc_info:
+        clothing_category.add_product("Это строка, а не продукт")
+
+    assert "Можно добавлять только объекты класса Product и его наследников!" in str(exc_info.value)
+
+
+def test_add_integer_raises_error(clothing_category):
+    """
+    Тест с числом вместо продукта.
+    """
+    with pytest.raises(TypeError) as exc_info:
+        clothing_category.add_product(123)
+
+    assert "Можно добавлять только объекты класса Product и его наследников!" in str(exc_info.value)
+
+
+def test_add_none_raises_error(clothing_category):
+    """
+    Тест с None вместо продукта.
+    """
+    with pytest.raises(TypeError) as exc_info:
+        clothing_category.add_product(None)
+
+    assert "Можно добавлять только объекты класса Product и его наследников!" in str(exc_info.value)

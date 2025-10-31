@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Any, List, Optional, Union
 
 from src.product import Product
 
@@ -18,24 +18,22 @@ class Category:
         for product in self.__products:
             if isinstance(product, Product):
                 Category.product_count += 1
+            else:
+                self.__products.remove(product)
 
     def __str__(self):
         """Магический метод для строкового представления категории"""
         total_quantity = sum(product.quantity for product in self.__products)
         return f"{self.name}, количество продуктов: {total_quantity} шт."
 
-    def add_product(self, product: Product):
+    def add_product(self, product: Union[Product, Any]):
         """Добавляет товар в категорию"""
-        # Проверяем, что передан объект Product
-        if isinstance(product, Product):
-            if product not in self.__products:
-                self.__products.append(product)
-                Category.product_count += 1
-                print(f"Товар '{product.name}' добавлен в категорию '{self.name}'")
-            else:
-                print(f"Товар '{product.name}' уже есть в категории")
-        else:
-            print("Можно добавлять только объекты класса Product!")
+        # Проверяем, что product является подклассом Product
+        if not isinstance(product, Product):
+            raise TypeError("Можно добавлять только объекты класса Product и его наследников!")
+        self.__products.append(product)
+        Category.product_count += 1
+        print(f"Товар '{product.name}' добавлен в категорию '{self.name}'")
 
     @property
     def products(self):
