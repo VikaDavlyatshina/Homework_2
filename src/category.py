@@ -43,4 +43,3 @@ class Category:
 
         product_list = [str(product) for product in self.__products]
         return "\n".join(product_list)
-

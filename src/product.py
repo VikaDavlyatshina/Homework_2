@@ -1,5 +1,6 @@
-from typing import List, Optional
 from abc import ABC, abstractmethod
+from typing import List, Optional
+
 
 class BaseProduct(ABC):
     """Абстрактный базовый класс для всех продуктов"""
@@ -26,8 +27,10 @@ class BaseProduct(ABC):
         """Абстрактный метод для получения дополнительной информации"""
         pass
 
+
 class ReprMixin:
     """Миксин для строкового представления"""
+
     def __repr__(self) -> str:
         class_name = self.__class__.__name__
         attributes = []
@@ -55,10 +58,7 @@ class Product(ReprMixin, BaseProduct):
 
     def get_additional_info(self) -> dict:
         """Возвращает дополнительную информацию о продукте"""
-        return {
-            "type": "Базовый продукт",
-            "category": "Общая категория"
-        }
+        return {"type": "Базовый продукт", "category": "Общая категория"}
 
     def __add__(self, other):
         """Магический метод, который возвращает общую стоимость всех товаров на складе"""
@@ -139,7 +139,7 @@ class Smartphone(Product):
             "performance": self.efficiency,
             "model": self.model,
             "memory_gb": self.memory,
-            "color": self.color
+            "color": self.color,
         }
 
 
@@ -168,5 +168,5 @@ class LawnGrass(Product):
             "type": "Газонная трава",
             "country": self.country,
             "germination_period": self.germination_period,
-            "color": self.color
+            "color": self.color,
         }
