@@ -1,7 +1,45 @@
 from typing import List, Optional
+from abc import ABC, abstractmethod
+
+class BaseProduct(ABC):
+    """Абстрактный базовый класс для всех продуктов"""
+
+    @abstractmethod
+    def __init__(self, name: str, description: str, price: float, quantity: int):
+        """Абстрактный конструктор.
+
+        Args:
+            name: Название продукта
+            description: Описание продукта
+            price: Цена продукта
+            quantity: Количество на складе
+        """
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        """Абстрактный метод для строкового представления"""
+        pass
+
+    @abstractmethod
+    def get_additional_info(self) -> dict:
+        """Абстрактный метод для получения дополнительной информации"""
+        pass
+
+class ReprMixin:
+    """Миксин для строкового представления"""
+    def __repr__(self) -> str:
+        class_name = self.__class__.__name__
+        attributes = []
+        for value in self.__dict__.values():
+            if isinstance(value, str):
+                attributes.append(f"'{value}'")
+            else:
+                attributes.append(str(value))
+        return f"{class_name}({', '.join(attributes)})"
 
 
-class Product:
+class Product(ReprMixin, BaseProduct):
     """Класс для представления товара"""
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
@@ -14,6 +52,13 @@ class Product:
     def __str__(self):
         """Магический метод для строкового представления товара"""
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def get_additional_info(self) -> dict:
+        """Возвращает дополнительную информацию о продукте"""
+        return {
+            "type": "Базовый продукт",
+            "category": "Общая категория"
+        }
 
     def __add__(self, other):
         """Магический метод, который возвращает общую стоимость всех товаров на складе"""
@@ -87,6 +132,16 @@ class Smartphone(Product):
             f"Цвет: {self.color}"
         )
 
+    def get_additional_info(self) -> dict:
+        """Возвращает дополнительную информацию о смартфоне"""
+        return {
+            "type": "Смартфон",
+            "performance": self.efficiency,
+            "model": self.model,
+            "memory_gb": self.memory,
+            "color": self.color
+        }
+
 
 class LawnGrass(Product):
     """Класс Трава газонная - наследуется от Product"""
@@ -106,3 +161,12 @@ class LawnGrass(Product):
             f"Срок прорастания: {self.germination_period}, "
             f"Цвет: {self.color}"
         )
+
+    def get_additional_info(self) -> dict:
+        """Возвращает дополнительную информацию о газонной траве"""
+        return {
+            "type": "Газонная трава",
+            "country": self.country,
+            "germination_period": self.germination_period,
+            "color": self.color
+        }

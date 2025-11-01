@@ -44,15 +44,3 @@ class Category:
         product_list = [str(product) for product in self.__products]
         return "\n".join(product_list)
 
-
-if __name__ == "__main__":  # pragma: no cover
-    product1 = Product("Футболка", "Хлопковая футболка", 99.99, 10)
-    product2 = Product("Джинсы", "Синие джинсы", 149.99, 15)
-
-    clothes = Category("Одежда", "Модная одежда", [product1, product2])
-
-    print("Товары категории")
-    print(clothes.products)
-
-    print(f"\nВсего категорий: {Category.category_count}")
-    print(f"\nВсего товаров: {Category.product_count}")
