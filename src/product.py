@@ -14,20 +14,14 @@ class BaseProduct(ABC):
         """Абстрактный метод для строкового представления"""
         pass
 
-    @property
-    @abstractmethod
-    def price(self) -> float:
-        pass
-
-    @price.setter
-    @abstractmethod
-    def price(self, new_price: float ):
-        pass
-
-
 
 class ReprMixin:
     """Миксин для печати в консоль при создании объекта"""
+
+    name: str
+    description: str
+    price: float
+    quantity: int
 
     def __init__(self, *args, **kwargs):
         """Конструктор миксина - печатает в консоль после создания объекта"""
@@ -35,7 +29,7 @@ class ReprMixin:
         print(repr(self))
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}('{self.name}', {self.description}', {self.price}, {self.quantity})"
+        return f'{self.__class__.__name__}("{self.name}", "{self.description}", {self.price}, {self.quantity})'
 
 
 class Product(ReprMixin, BaseProduct):
@@ -109,15 +103,16 @@ class Smartphone(Product):
     """Класс для Смартфонов - наследуется от Product"""
 
     def __init__(self, name, description, price, quantity, efficiency, model, memory, color):
-        super().__init__(name, description, price, quantity)
         self.efficiency = efficiency  # производительность
         self.model = model  # модель
         self.memory = memory  # объём памяти
         self.color = color  # цвет
 
+        super().__init__(name, description, price, quantity)
+
     def __repr__(self):
-        return (f"Smartphone('{self.name}', '{self.description}', {self.price}, {self.quantity}, "
-                f"'{self.efficiency}', '{self.model}', {self.memory}, '{self.color}')")
+        return (f'{self.__class__.__name__}("{self.name}", "{self.description}", {self.price}, {self.quantity}, '
+                f'"{self.efficiency}", "{self.model}", {self.memory}, "{self.color}")')
 
 
     def __str__(self):
@@ -137,14 +132,15 @@ class LawnGrass(Product):
     """Класс Трава газонная - наследуется от Product"""
 
     def __init__(self, name, description, price, quantity, country, germination_period, color):
-        super().__init__(name, description, price, quantity)
         self.country = country  # страна-производитель
         self.germination_period = germination_period  # срок прорастания
         self.color = color  # цвет
 
+        super().__init__(name, description, price, quantity)
+
     def __repr__(self):
-        return (f"LawnGrass('{self.name}', '{self.description}', {self.price}, {self.quantity}, "
-                f"'{self.country}', '{self.germination_period}', '{self.color}')")
+        return (f'{self.__class__.__name__}("{self.name}", "{self.description}", {self.price}, {self.quantity}, '
+                f'"{self.country}", "{self.germination_period}", "{self.color}")')
 
     def __str__(self):
         """Переопределяем строковое представление для смартфона"""
@@ -157,3 +153,4 @@ class LawnGrass(Product):
         )
 
 
+product1 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
