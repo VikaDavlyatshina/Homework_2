@@ -3,18 +3,10 @@ from typing import List, Optional
 
 
 class BaseProduct(ABC):
-    """Абстрактный базовый класс для всех продуктов"""
+    """Базовый абстрактный класс для всех продуктов"""
 
     @abstractmethod
     def __init__(self, name: str, description: str, price: float, quantity: int):
-        """Абстрактный конструктор.
-
-        Args:
-            name: Название продукта
-            description: Описание продукта
-            price: Цена продукта
-            quantity: Количество на складе
-        """
         pass
 
     @abstractmethod
@@ -22,24 +14,28 @@ class BaseProduct(ABC):
         """Абстрактный метод для строкового представления"""
         pass
 
+    @property
     @abstractmethod
-    def get_additional_info(self) -> dict:
-        """Абстрактный метод для получения дополнительной информации"""
+    def price(self) -> float:
+        pass
+
+    @price.setter
+    @abstractmethod
+    def price(self, new_price: float ):
         pass
 
 
+
 class ReprMixin:
-    """Миксин для строкового представления"""
+    """Миксин для печати в консоль при создании объекта"""
+
+    def __init__(self, *args, **kwargs):
+        """Конструктор миксина - печатает в консоль после создания объекта"""
+        super().__init__(*args, **kwargs)
+        print(repr(self))
 
     def __repr__(self) -> str:
-        class_name = self.__class__.__name__
-        attributes = []
-        for value in self.__dict__.values():
-            if isinstance(value, str):
-                attributes.append(f"'{value}'")
-            else:
-                attributes.append(str(value))
-        return f"{class_name}({', '.join(attributes)})"
+        return f"{self.__class__.__name__}('{self.name}', {self.description}', {self.price}, {self.quantity})"
 
 
 class Product(ReprMixin, BaseProduct):
@@ -52,13 +48,11 @@ class Product(ReprMixin, BaseProduct):
         self.__price = price
         self.quantity = quantity
 
+        super().__init__(name, description, price, quantity)
+
     def __str__(self):
         """Магический метод для строкового представления товара"""
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
-
-    def get_additional_info(self) -> dict:
-        """Возвращает дополнительную информацию о продукте"""
-        return {"type": "Базовый продукт", "category": "Общая категория"}
 
     def __add__(self, other):
         """Магический метод, который возвращает общую стоимость всех товаров на складе"""
@@ -121,6 +115,11 @@ class Smartphone(Product):
         self.memory = memory  # объём памяти
         self.color = color  # цвет
 
+    def __repr__(self):
+        return (f"Smartphone('{self.name}', '{self.description}', {self.price}, {self.quantity}, "
+                f"'{self.efficiency}', '{self.model}', {self.memory}, '{self.color}')")
+
+
     def __str__(self):
         """Переопределяем строковое представление для смартфона"""
         base_info = super().__str__()  # берём базовую информацию
@@ -132,15 +131,6 @@ class Smartphone(Product):
             f"Цвет: {self.color}"
         )
 
-    def get_additional_info(self) -> dict:
-        """Возвращает дополнительную информацию о смартфоне"""
-        return {
-            "type": "Смартфон",
-            "performance": self.efficiency,
-            "model": self.model,
-            "memory_gb": self.memory,
-            "color": self.color,
-        }
 
 
 class LawnGrass(Product):
@@ -152,6 +142,10 @@ class LawnGrass(Product):
         self.germination_period = germination_period  # срок прорастания
         self.color = color  # цвет
 
+    def __repr__(self):
+        return (f"LawnGrass('{self.name}', '{self.description}', {self.price}, {self.quantity}, "
+                f"'{self.country}', '{self.germination_period}', '{self.color}')")
+
     def __str__(self):
         """Переопределяем строковое представление для смартфона"""
         base_info = super().__str__()  # берём базовую информацию
@@ -162,11 +156,4 @@ class LawnGrass(Product):
             f"Цвет: {self.color}"
         )
 
-    def get_additional_info(self) -> dict:
-        """Возвращает дополнительную информацию о газонной траве"""
-        return {
-            "type": "Газонная трава",
-            "country": self.country,
-            "germination_period": self.germination_period,
-            "color": self.color,
-        }
+
