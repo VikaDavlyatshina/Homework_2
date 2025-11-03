@@ -153,9 +153,8 @@ print(grass)
 
 #### Класс-миксин ReprMixin
 - Добавляет автоматическое строковое представление объектов
-- Выводит информацию в формате `ClassName('attr1', 123, 'attr2')`
+- Выводит информацию в формате `ClassName("name", "description", price, quantity)`
 
 #### Обновлены классы продуктов
-- `Product` теперь наследуется от `BaseProduct` и `PeprMixin`
+- `Product` теперь наследуется от `BaseProduct` и `ReprMixin`
 - `Smartphone` и `LawnGrass` наследуются от `Product`
-- Все классы реализуют метод `get_additional_info()`
