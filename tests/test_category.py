@@ -142,11 +142,13 @@ def test_add_none_raises_error(clothing_category):
 
     assert "Можно добавлять только объекты класса Product и его наследников!" in str(exc_info.value)
 
+
 def test_middle_price_empty_category():
     """Пустая категория должна возвращать 0"""
     category = Category("Пустая категория", "Категория без товара")
     assert category.middle_price() == 0
 
-def test_middle_price_category(sample_products, clothing_category ):
+
+def test_middle_price_category(sample_products, clothing_category):
     """Тест вычисления средней цены"""
     assert clothing_category.middle_price() == 124.99

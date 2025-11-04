@@ -1,6 +1,6 @@
 import pytest
 
-from src.product import Product, Smartphone, LawnGrass
+from src.product import LawnGrass, Product, Smartphone
 
 """Тесты для класса Product"""
 
@@ -186,6 +186,7 @@ def test_product_prints_basic_info(capsys):
     assert "512GB" in captured.out
     assert "210000.0" in captured.out
 
+
 def test_smartphone_creation_prints_to_console(capsys):
     Smartphone("Samsung", "Флагман", 70000, 4, "A15", "S21", 256, "Black")
     captured = capsys.readouterr()
@@ -193,6 +194,7 @@ def test_smartphone_creation_prints_to_console(capsys):
 
     assert "Smartphone" in printed_text
     assert "Samsung" in printed_text
+
 
 def test_lawn_grass_creation_prints_to_console(capsys):
     LawnGrass("Трава", "Газонная", 3000, 50, "Россия", "14 дней", "Зелёный")
@@ -202,16 +204,17 @@ def test_lawn_grass_creation_prints_to_console(capsys):
     assert "LawnGrass" in printed_text
     assert "Трава" in printed_text
 
+
 def test_product_zero_quantity_raises_error():
     with pytest.raises(ValueError) as error_info:
-      Product("Бракованный товар", "Неверное количество", 1000.0, 0)
+        Product("Бракованный товар", "Неверное количество", 1000.0, 0)
 
     assert "Товар с нулевым количеством не может быть добавлен" in str(error_info.value)
+
 
 def test_product_negative_quantity_works():
     """Тест: создание товара с отрицательным остатком"""
     with pytest.raises(ValueError) as error_info:
-      Product("Товар", "Описание", 100.0, -5)
+        Product("Товар", "Описание", 100.0, -5)
 
     assert "Остаток товара не должен быть отрицательным." in str(error_info.value)
-
