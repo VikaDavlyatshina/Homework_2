@@ -1,6 +1,6 @@
 import pytest
 
-from src.product import Product
+from src.product import Product, Smartphone, LawnGrass
 
 """Тесты для класса Product"""
 
@@ -174,3 +174,30 @@ def test_addition_product_with_lawn_grass_raises_error(sample_product, lawn_gras
     """Тест, что сложение Product и LawnGrass вызывает ошибку."""
     with pytest.raises(TypeError, match="Можно складывать только товары из одинаковых классов продуктов"):
         _ = sample_product + lawn_grass_product
+
+
+def test_product_prints_basic_info(capsys):
+    """Проверяем что основные данные есть в выводе"""
+    Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+    captured = capsys.readouterr()
+
+    # Проверяем ключевые слова
+    assert "Iphone 15" in captured.out
+    assert "512GB" in captured.out
+    assert "210000.0" in captured.out
+
+def test_smartphone_creation_prints_to_console(capsys):
+    Smartphone("Samsung", "Флагман", 70000, 4, "A15", "S21", 256, "Black")
+    captured = capsys.readouterr()
+    printed_text = captured.out
+
+    assert "Smartphone" in printed_text
+    assert "Samsung" in printed_text
+
+def test_lawn_grass_creation_prints_to_console(capsys):
+    LawnGrass("Трава", "Газонная", 3000, 50, "Россия", "14 дней", "Зелёный")
+    captured = capsys.readouterr()
+    printed_text = captured.out
+
+    assert "LawnGrass" in printed_text
+    assert "Трава" in printed_text
