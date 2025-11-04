@@ -39,6 +39,8 @@ class Product(ReprMixin, BaseProduct):
 
         if quantity == 0:
             raise ValueError("Товар с нулевым количеством не может быть добавлен.")
+        elif quantity < 0:
+            raise ValueError("Остаток товара не должен быть отрицательным.")
 
         self.name = name
         self.description = description
@@ -114,9 +116,10 @@ class Smartphone(Product):
         super().__init__(name, description, price, quantity)
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}("{self.name}", "{self.description}", {self.price}, {self.quantity}, '
-                f'"{self.efficiency}", "{self.model}", {self.memory}, "{self.color}")')
-
+        return (
+            f'{self.__class__.__name__}("{self.name}", "{self.description}", {self.price}, {self.quantity}, '
+            f'"{self.efficiency}", "{self.model}", {self.memory}, "{self.color}")'
+        )
 
     def __str__(self):
         """Переопределяем строковое представление для смартфона"""
@@ -130,7 +133,6 @@ class Smartphone(Product):
         )
 
 
-
 class LawnGrass(Product):
     """Класс Трава газонная - наследуется от Product"""
 
@@ -142,8 +144,10 @@ class LawnGrass(Product):
         super().__init__(name, description, price, quantity)
 
     def __repr__(self):
-        return (f'{self.__class__.__name__}("{self.name}", "{self.description}", {self.price}, {self.quantity}, '
-                f'"{self.country}", "{self.germination_period}", "{self.color}")')
+        return (
+            f'{self.__class__.__name__}("{self.name}", "{self.description}", {self.price}, {self.quantity}, '
+            f'"{self.country}", "{self.germination_period}", "{self.color}")'
+        )
 
     def __str__(self):
         """Переопределяем строковое представление для смартфона"""

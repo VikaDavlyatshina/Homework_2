@@ -49,10 +49,8 @@ class Category:
         try:
             # Подсчитываем среднюю цену
             total_price = sum(product.price for product in self.__products)
-            middle_price = total_price / len(self.__products)
+            middle_price = round(total_price / len(self.__products), 2)
             return middle_price
         # Обрабатываем случай, когда в категории нет товаров
         except ZeroDivisionError:
             return 0
-
-
