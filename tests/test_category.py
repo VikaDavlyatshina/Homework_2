@@ -39,7 +39,7 @@ def test_total_product_count():
     Category(
         "Одежда",
         "Модная одежда",
-        [Product("Футболка", "Хлопковая футболка", 99.99, 10), Product("Джинсы", "Синие джинсы", 149.99, 15)],
+        [Product("Футболка", "Хлопковая футболка", 100.00, 10), Product("Джинсы", "Синие джинсы", 150.00, 15)],
     )
 
     Category(
@@ -141,3 +141,14 @@ def test_add_none_raises_error(clothing_category):
         clothing_category.add_product(None)
 
     assert "Можно добавлять только объекты класса Product и его наследников!" in str(exc_info.value)
+
+
+def test_middle_price_empty_category():
+    """Пустая категория должна возвращать 0"""
+    category = Category("Пустая категория", "Категория без товара")
+    assert category.middle_price() == 0
+
+
+def test_middle_price_category(sample_products, clothing_category):
+    """Тест вычисления средней цены"""
+    assert clothing_category.middle_price() == 124.99
